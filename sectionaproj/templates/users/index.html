@@ -30,9 +30,9 @@ Users page
                         <td>{{user.last_name}}</td>
                         <td>{{user.gender}}</td>
                         <td>
-                            <a href="#" class="btn btn-primary">View</a>
+                            <a href="/users/show/{{ user.user_id }}" class="btn btn-primary">View</a>
                             <a href="#" class="btn btn-success">Edit</a>
-                            <a href="#" class="btn btn-danger">Delete</a>
+                            <a href="/users/delete/{{ user.user_id }}" class="btn btn-danger">Delete</a>
                         </td>
                     </tr>
                 {% endfor %}

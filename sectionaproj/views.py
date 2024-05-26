@@ -110,3 +110,41 @@ def store_user(request):
     else:
         messages.error(request, 'error')
         return redirect('users/create.html')
+
+def show_user(request, user_id):
+    user = User.objects.get(pk=user_id) #select from mysql
+
+    context = {
+        'user': user,
+        'first_name':user,
+    }
+    return render(request, 'users/show.html', context)
+
+# def edit_user(request, user_id):
+#     user = User.objects.get(pk=user_id)  #select a specfic object from mysql
+#     context = {
+#         'user': user,
+#     }
+
+#     return render(request, 'users/edit.html', context)
+
+# def update_user(request, user_id):
+#     user = request.POST.get('user')
+#     User.objects.filter(pk=user_id).update(userr=user) #update for mysql
+#     messages.success(request, 'user successfully updated')
+
+#     return redirect('/users')
+
+def delete_user(request, user_id):
+    user = User.objects.get(pk=user_id)  #select for mysql
+    context = {
+        'user': user,
+    }
+    
+    return render(request, 'users/delete.html', context)
+
+def destroy_user(request, user_id):
+    User.objects.filter(pk=user_id).delete() #delete from mysql
+    messages.success(request, 'user successfully Deleted')
+
+    return redirect('/users')
