@@ -91,6 +91,7 @@ def store_user(request):
     password = request.POST.get('password')
     confirmPassword = request.POST.get('confirm_password')
 
+   
     if password == confirmPassword:
         encryptedPassword = make_password(password)
 
@@ -109,7 +110,7 @@ def store_user(request):
         return redirect('/users')
     else:
         messages.error(request, 'error')
-        return redirect('users/create.html')
+        return redirect('/create')
 
 def show_user(request, user_id):
     user = User.objects.get(pk=user_id) #select from mysql
@@ -120,25 +121,41 @@ def show_user(request, user_id):
     }
     return render(request, 'users/show.html', context)
 
-# def edit_user(request, user_id):
-#     user = User.objects.get(pk=user_id)  #select a specfic object from mysql
-#     context = {
-#         'user': user,
-#     }
+def edit_user(request, user_id):
+    genders = Gender.objects.all()
+    user = User.objects.get(pk=user_id) #select a specfic object from mysql
+    context = {
+        'user': user,
+        'genders':genders,
+    }
 
-#     return render(request, 'users/edit.html', context)
+    return render(request, 'users/edit.html', context)
 
-# def update_user(request, user_id):
-#     user = request.POST.get('user')
-#     User.objects.filter(pk=user_id).update(userr=user) #update for mysql
-#     messages.success(request, 'user successfully updated')
+def update_user(request, user_id):
+    firstName = request.POST.get('first_name')
+    middleName = request.POST.get('middle_name')
+    lastName = request.POST.get('last_name')
+    age = request.POST.get('age')
+    birthDate = request.POST.get('birth_date')
+    genderId = request.POST.get('gender_id')
+    username = request.POST.get('username')
 
-#     return redirect('/users')
+    User.objects.filter(pk=user_id).update(
+        first_name=firstName,
+        middle_name=middleName,
+        last_name=lastName,
+        age=age,
+        birth_date=birthDate,
+        gender_id=genderId,
+        username=username,
+        )
+    messages.success(request, 'success')
 
+    return redirect('/users')
 def delete_user(request, user_id):
     user = User.objects.get(pk=user_id)  #select for mysql
     context = {
-        'user': user,
+        'users': user,
     }
     
     return render(request, 'users/delete.html', context)
@@ -148,3 +165,6 @@ def destroy_user(request, user_id):
     messages.success(request, 'user successfully Deleted')
 
     return redirect('/users')
+
+def main_page(request):
+    return render(request, 'interface/mainPage.html')

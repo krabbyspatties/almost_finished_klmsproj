@@ -5,8 +5,11 @@ Users page
 {% endblock title %}
 
 {% block content %}
-
-<a href="/users/create" class="btn btn-primary float-end mt-1 me-1">Add User</a>
+{% include "include/navbar.html" %}
+<div>
+    <a href="/users/create" class="btn btn-primary float-end mt-1 me-1">Add User</a>
+    <a href="/" class="btn btn-secondary float-end mt-1 me-1">Back</a>
+</div>
 {% include "include/messages.html" %}
 <div class="col-md-6 mx-auto">
     <div class="table-responsive">
@@ -23,7 +26,7 @@ Users page
             </thead>
             <tbody>
                 {% for user in users %}
-                    <tr>
+                    <tr class="clickable-row" data-href="/users/create">
                         <td>{{user.user_id}}</td>
                         <td>{{user.first_name}}</td>
                         <td>{{user.middle_name}}</td>
@@ -31,7 +34,7 @@ Users page
                         <td>{{user.gender}}</td>
                         <td>
                             <a href="/users/show/{{ user.user_id }}" class="btn btn-primary">View</a>
-                            <a href="#" class="btn btn-success">Edit</a>
+                            <a href="/users/edit/{{ user.user_id }}" class="btn btn-success">Edit</a>
                             <a href="/users/delete/{{ user.user_id }}" class="btn btn-danger">Delete</a>
                         </td>
                     </tr>

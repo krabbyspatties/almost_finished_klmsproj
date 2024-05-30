@@ -22,12 +22,7 @@ View Users
         </div>
         <div class="md-3">
             <label for="gender_id">Gender</label>
-            <select name="gender_id" id="gender_id" class="form-select" >
-                <option value="">N/A</option>
-                {% for gender in genders %}
-                    <option value="{{ gender.gender_id }}">{{ gender.gender }}</option>
-                {% endfor %}
-            </select>
+            <input type="text" class="form-control" id="gender_id" name="gender_id" value="{{ user.gender }}" readonly/>
         </div>
         <div class="md-3">
             <label for="username">Username</label>
